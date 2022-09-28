@@ -17,10 +17,10 @@
       </div>
       <div class="header-right">
         <div class="form-container">
-          <form action="" method="post">
+          <form action="" method="post" class="add-song-form">
             <caption><strong>Add song</strong></caption>
             <label for="song-name">Song name
-              <input type="text" id="song-name" placeholder="Song name">
+              <input type="text" id="song-name" placeholder="Song name" required>
             </label>
             <label for="author">Song author
               <input type="text" id="author" placeholder="Song author">
@@ -32,16 +32,16 @@
               <input type="text" id="length" placeholder="3:03">
             </label>
             <label for="heard">I've heard it before
-              <input type="checkbox" id="song-name" placeholder="Song name">
+              <input type="checkbox" id="heard">
             </label>
-            <button class="submit-form-button">Add</button>
+            <button type="button" class="submit-form-button" onclick="hideForm(); saveInput()">Add</button>
           </form>
         </div>
         <img class="add-song-button" src="./icons/music-note-plus-button.svg" alt="Add song button">
       </div>
     </div>
     <div class="main-content">
-      <div class="book-container">
+      <div class="song-container">
   
       </div>
     </div>
