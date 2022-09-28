@@ -64,6 +64,7 @@ html {
 .form-container {
   display: none;
   position: relative;
+  z-index: 1;
 }
 
 form {
@@ -136,7 +137,7 @@ input[type='text'] {
   padding: 20px;
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 0.25fr));
   /* grid-auto-rows: min-content; */
   gap: 20px;
 }
