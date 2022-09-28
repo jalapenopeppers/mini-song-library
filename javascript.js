@@ -1,13 +1,21 @@
+/*
+  TODO: 
+  - add 'add song' functionality
+  - add button to each song to remove it
+  - add button to each song to change its haveHeard status
+*/
+
 let myLibrary = [];
 
-function Book(title, author, pages, haveRead) {
+function Book(title, author, album, length, haveHeard) {
   this.title = title;
   this.author = author;
-  this.pages = pages;
-  this.haveRead = haveRead;
+  this.album = album;
+  this.length = length;
+  this.haveHeard = haveHeard;
 
   this.info = function() {
-    return this.title + ' by ' + this.author + ', ' + this.pages + ' pages, ' + (haveRead ? 'have read' : 'not read yet')
+    return this.title + ' by ' + this.author + ', ' + this.length + ' min long, ' + (haveHeard ? 'have heard' : 'not heard yet')
   }
 }
 
@@ -34,7 +42,10 @@ function displayBooks(myLibrary) {
 addBookToLibrary('The Hobbit, JRR Tolkien, 295, false')
 addBookToLibrary('The Hobbit2, JRR Tolkien2, 295, false')
 addBookToLibrary('The Hobbit3, JRR Tolkien3, 295, false')
-addBookToLibrary('The Hobbit, JRR Tolkien, 295, false')
-addBookToLibrary('The Hobbit2, JRR Tolkien2, 295, false')
-addBookToLibrary('The Hobbit3, JRR Tolkien3, 295, false')
 displayBooks(myLibrary)
+
+let addSongButton = document.querySelector('.add-song-button');
+addSongButton.addEventListener('click', () => {
+  let formElement = document.querySelector('.form-container');
+  formElement.style.display = (formElement.style.display === 'initial' ? 'none' : 'initial');
+});
