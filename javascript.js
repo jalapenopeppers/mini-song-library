@@ -13,21 +13,27 @@ function Song(title, author, album, length, haveHeard) {
   this.album = album;
   this.length = length;
   this.haveHeard = haveHeard;
+  this.myLibraryIndex = undefined;
 
   this.info = function() {
     return this.title + ' by ' + this.author + ', ' + this.length + ' min long, ' + (haveHeard ? 'have heard' : 'not heard yet')
   }
 }
 
-// const theHobbit = new Song('The Hobbit', 'JRR Tolkien', 295, false);
-// console.log(theHobbit.info());
-
-//Example strInput: 'The Hobbit, JRR Tolkien, 295, false'
 function addSongToLibrary(song) {
-  // let strArray = strInput.split(', ');
-  // let song = new Song(strArray[0], strArray[1], strArray[2], strArray[3]);
+  song.myLibraryIndex = myLibrary.length;
   myLibrary.push(song);
   displaySongs();
+}
+
+function removeSongFromLibrary(myLibraryIndex) {
+  console.log(myLibraryIndex);
+  myLibrary.splice(myLibraryIndex, 1); // Adjust myLibrary to remove deleted song
+  // Reassign correct indexes to songs since they are now mislabeled
+  for (let i = 0; i < myLibrary.length; i++) {
+    myLibrary[i].myLibraryIndex = i;
+  }
+  displaySongs(); //Refresh displayed songs
 }
 
 function displaySongs() {
@@ -68,14 +74,19 @@ function displaySongs() {
     `;
     songCard.appendChild(songHeardElem);
 
+    let songRemoveElem = document.createElement('img');
+    songRemoveElem.setAttribute('class', 'remove-song-button');
+    songRemoveElem.setAttribute('src', './icons/music-note-minus.svg');
+    songRemoveElem.setAttribute('alt', 'Remove song button');
+    songRemoveElem.setAttribute('mylibraryindex', `${song.myLibraryIndex}`);
+    songRemoveElem.addEventListener('click', (e) => {
+      removeSongFromLibrary(Number(e.target.getAttribute('mylibraryindex')));
+    });
+    songCard.appendChild(songRemoveElem);
+
     songContainer.appendChild(songCard);
   }
 }
-
-// addSongToLibrary('The Hobbit, JRR Tolkien, 295, false');
-// addSongToLibrary('The Hobbit2, JRR Tolkien2, 295, false');
-// addSongToLibrary('The Hobbit3, JRR Tolkien3, 295, false');
-// displaySongs();
 
 function hideForm() {
   let formElement = document.querySelector('.form-container');

@@ -38,8 +38,12 @@ html {
   justify-content: space-between;
 }
 
-.header-icon {
+.header-icon,
+.remove-song-button {
   filter: brightness(0) saturate(100%) invert(98%) sepia(25%) saturate(7239%) hue-rotate(179deg) brightness(116%) contrast(96%);
+}
+
+.header-icon {
   width: 70px;
   height: 70px;
 }
@@ -106,11 +110,19 @@ input[type='text'] {
   transition: 0.2s;
 }
 
-.add-song-button:hover {
+.remove-song-button {
+  width: 30px;
+  height: 30px;
+  transition: 0.2s;
+}
+
+.add-song-button:hover,
+.remove-song-button:hover {
   cursor: pointer;
 }
 
-.add-song-button:active {
+.add-song-button:active,
+.remove-song-button:active {
   scale: 0.95;
 }
 
