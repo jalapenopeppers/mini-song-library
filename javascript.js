@@ -50,6 +50,7 @@ function displaySongs() {
   for (let song of myLibrary) {
     let songCard = document.createElement('div');
     songCard.classList.add('song-card');
+    songCard.setAttribute('mylibraryindex', `${song.myLibraryIndex}`);
 
     let songNameElem = document.createElement('div');
     songNameElem.classList.add('song-name');
@@ -76,18 +77,25 @@ function displaySongs() {
     songHeardElem.textContent = 'Heard: ';
     let labelSwitchElem = document.createElement('label')
     labelSwitchElem.classList.add('switch');
-    labelSwitchElem.addEventListener('click', toggleHaveHeard.bind(song));
+
+    let inputElem = document.createElement('input');
+    inputElem.setAttribute('type', 'checkbox');
     if (song.haveHeard === true) {
-      labelSwitchElem.innerHTML = `
-        <input type="checkbox" checked>
-        <span class="slider round"></span>
-    `;
-    } else {
-      labelSwitchElem.innerHTML = `
-        <input type="checkbox">
-        <span class="slider round"></span>
-    `;
+      inputElem.checked = true;
     }
+    let spanElem = document.createElement('span');
+    spanElem.classList.add('slider', 'round');
+    labelSwitchElem.appendChild(inputElem);
+    labelSwitchElem.appendChild(spanElem);
+    inputElem.addEventListener('click', (e) => {
+      console.log(e.currentTarget.parentNode.parentNode.parentNode.getAttribute('mylibraryindex'));
+      let selectedSongIndex = Number(e.currentTarget.parentNode.parentNode.parentNode.getAttribute('mylibraryindex'));
+      if (myLibrary[selectedSongIndex].haveHeard === true) {
+        myLibrary[selectedSongIndex].haveHeard = false;
+      } else {
+        myLibrary[selectedSongIndex].haveHeard = true;
+      }
+    }, false);
     songHeardElem.appendChild(labelSwitchElem);
     songCard.appendChild(songHeardElem);
 
@@ -95,9 +103,8 @@ function displaySongs() {
     songRemoveElem.setAttribute('class', 'remove-song-button');
     songRemoveElem.setAttribute('src', './icons/music-note-minus.svg');
     songRemoveElem.setAttribute('alt', 'Remove song button');
-    songRemoveElem.setAttribute('mylibraryindex', `${song.myLibraryIndex}`);
     songRemoveElem.addEventListener('click', (e) => {
-      removeSongFromLibrary(Number(e.target.getAttribute('mylibraryindex')));
+      removeSongFromLibrary(Number(e.currentTarget.parentNode.getAttribute('mylibraryindex')));
     });
     songCard.appendChild(songRemoveElem);
 
