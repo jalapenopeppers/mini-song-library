@@ -1,8 +1,7 @@
 /*
   TODO: 
-  - add 'add song' functionality
-  - add button to each song to remove it
-  - add button to each song to change its haveHeard status
+  - fix toggle switch
+  - fix toggle switch bug that turns it off on screen refreshes
 */
 
 let myLibrary = [];

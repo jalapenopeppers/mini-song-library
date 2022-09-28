@@ -1,6 +1,6 @@
 /*
   TODO:
-  - style form to look better
+  - 
 */
 
 @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap');
@@ -114,6 +114,7 @@ input[type='text'] {
   width: 30px;
   height: 30px;
   transition: 0.2s;
+  place-self: end;
 }
 
 .add-song-button:hover,
@@ -133,25 +134,28 @@ input[type='text'] {
 
 .song-container {
   padding: 20px;
+  box-sizing: border-box;
   display: grid;
-  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
-  grid-auto-rows: min-content;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  /* grid-auto-rows: min-content; */
   gap: 20px;
 }
 
-.song-container:hover {
+/* .song-container:hover {
   border: 1px solid gray;
-}
+} */
 
 .song-card {
   padding: 10px;
   font-size: 20px;
-  justify-self: center;
+  word-break: break-all;
   border-radius: 10px;
   color: var(--subtext-white);
   /* background-color: var(--main-text-white); */
   /* border: 1px solid var(--main-text-white); */
   box-shadow: -4px 0px 0px 0px var(--main-text-white);
+  display: grid;
+  grid-template: repeat(5, min-content) 1fr / 1fr;
 }
 
 .song-heard-switch {
