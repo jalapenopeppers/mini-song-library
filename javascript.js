@@ -1,7 +1,7 @@
 /*
   TODO: 
-  - fix toggle switch
-  - fix toggle switch bug that turns it off on screen refreshes
+  - fix toggle switch bug that reverts to original value on screen
+  refreshes
 */
 
 let myLibrary = [];
@@ -35,6 +35,15 @@ function removeSongFromLibrary(myLibraryIndex) {
   displaySongs(); //Refresh displayed songs
 }
 
+function toggleHaveHeard(song) {
+  if (song.haveHeard === true) {
+    song.haveHeard = false;
+  } else {
+    song.haveHeard = true;
+  }
+  console.log(song.haveHeard);
+}
+
 function displaySongs() {
   let songContainer = document.querySelector('.song-container');
   songContainer.innerHTML = ''; // Removes all song cards to redraw them
@@ -64,13 +73,22 @@ function displaySongs() {
 
     let songHeardElem = document.createElement('div');
     songHeardElem.classList.add('song-heard-switch');
-    songHeardElem.innerHTML = `
-      Heard: 
-      <label class="switch">
+    songHeardElem.textContent = 'Heard: ';
+    let labelSwitchElem = document.createElement('label')
+    labelSwitchElem.classList.add('switch');
+    labelSwitchElem.addEventListener('click', toggleHaveHeard.bind(song));
+    if (song.haveHeard === true) {
+      labelSwitchElem.innerHTML = `
+        <input type="checkbox" checked>
+        <span class="slider round"></span>
+    `;
+    } else {
+      labelSwitchElem.innerHTML = `
         <input type="checkbox">
         <span class="slider round"></span>
-      </label>
     `;
+    }
+    songHeardElem.appendChild(labelSwitchElem);
     songCard.appendChild(songHeardElem);
 
     let songRemoveElem = document.createElement('img');
