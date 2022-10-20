@@ -21,20 +21,23 @@
             <caption><strong>Add song</strong></caption>
             <label for="song-name">Song name
               <input type="text" id="song-name" placeholder="Song name" required>
+              <span class="song-name error-message" aria-live="polite"></span>
             </label>
             <label for="author">Song author
-              <input type="text" id="author" placeholder="Song author">
+              <input type="text" id="author" placeholder="Song author" required>
+              <span class="author error-message" aria-live="polite"></span>
             </label>
             <label for="album">Album (leave empty if single)
               <input type="text" id="album" placeholder="Album name">
             </label>
             <label for="length">Length
-              <input type="text" id="length" placeholder="3:03">
+              <input type="text" id="length" placeholder="3:03" pattern="\d?\d:\d\d" required>
+              <span class="length error-message" aria-live="polite"></span>
             </label>
             <label for="heard">I've heard it before
               <input type="checkbox" id="heard">
             </label>
-            <button type="button" class="submit-form-button" onclick="hideForm(); saveInput()">Add</button>
+            <button type="button" class="submit-form-button" onclick="saveInput()">Add</button>
           </form>
         </div>
         <img class="add-song-button" src="./icons/music-note-plus-button.svg" alt="Add song button">

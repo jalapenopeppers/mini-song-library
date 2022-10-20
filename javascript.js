@@ -1,7 +1,5 @@
 /*
   TODO: 
-  - fix toggle switch bug that reverts to original value on screen
-  refreshes
 */
 
 let myLibrary = [];
@@ -121,6 +119,10 @@ let addSongButton = document.querySelector('.add-song-button');
 addSongButton.addEventListener('click', hideForm);
 
 function saveInput() {
+  if (!validateAddSongForm()) {
+    // Don't save any input if the form does not pass validation
+    return;
+  }
   let elements = document.querySelectorAll('.add-song-form input');
   console.log(elements);
   console.log(elements.length);
@@ -138,4 +140,91 @@ function saveInput() {
     let song = new Song(...inputsArray);
     addSongToLibrary(song);
   }
+  hideForm();
+}
+
+// Returns true if everything is valid, false if not
+function validateAddSongForm() {
+  const songNameInput = document.querySelector('input#song-name');
+  const songNameErrorMsg = document.querySelector('span.song-name');
+  const songAuthorInput = document.querySelector('input#author');
+  const songAuthorErrorMsg = document.querySelector('span.author');
+  const songLengthInput = document.querySelector('input#length');
+  const songLengthErrorMsg = document.querySelector('span.length');
+  let passedValidation = true;
+
+  if (songNameInput.validity.valueMissing) {
+    songNameErrorMsg.textContent = 'Please enter a title';
+    songNameInput.style.border = '2px solid rgb(214, 85, 85)';
+    songNameInput.addEventListener('input', (e) => {
+      if (!songNameInput.validity.valueMissing) {
+        songNameErrorMsg.textContent = '';
+        songNameInput.style.border = '';
+      } else {
+        songNameErrorMsg.textContent = 'Please enter a title';
+        songNameInput.style.border = '2px solid rgb(214, 85, 85)';
+      }
+    });
+    passedValidation = false;
+  } else {
+    songNameErrorMsg.textContent = '';
+    songNameInput.style.border = '';
+    // Remove event listener here
+  }
+  if (songAuthorInput.validity.valueMissing) {
+    songAuthorErrorMsg.textContent = 'Please enter an author';
+    passedValidation = false;
+    songAuthorInput.style.border = '2px solid rgb(214, 85, 85)';
+    songAuthorInput.addEventListener('input', (e) => {
+      if (!songAuthorInput.validity.valueMissing) {
+        songAuthorErrorMsg.textContent = '';
+        songAuthorInput.style.border = '';
+      } else {
+        songAuthorErrorMsg.textContent = 'Please enter an author';
+        songAuthorInput.style.border = '2px solid rgb(214, 85, 85)';
+      }
+    });
+  } else {
+    songAuthorErrorMsg.textContent = '';
+    songAuthorInput.style.border = '';
+    // Remove event listener here
+  }
+  if (songLengthInput.validity.valueMissing) {
+    songLengthErrorMsg.textContent = 'Please enter a song length';
+    songLengthInput.style.border = '2px solid rgb(214, 85, 85)';
+    songLengthInput.addEventListener('input', (e) => {
+      if (songLengthInput.validity.valueMissing) {
+        songLengthErrorMsg.textContent = 'Please enter a song length';
+        songLengthInput.style.border = '2px solid rgb(214, 85, 85)';
+      } else if (songLengthInput.validity.patternMismatch) {
+        songLengthErrorMsg.textContent = 'Use this format: 3:50';
+        songLengthInput.style.border = '2px solid rgb(214, 85, 85)';
+      } else {
+        songLengthErrorMsg.textContent = '';
+        songLengthInput.style.border = '';
+      }
+    });
+    passedValidation = false;
+  } else if (songLengthInput.validity.patternMismatch) {
+    songLengthErrorMsg.textContent = 'Use this format: 3:50';
+    songLengthInput.style.border = '2px solid rgb(214, 85, 85)';
+    songLengthInput.addEventListener('input', (e) => {
+      if (songLengthInput.validity.valueMissing) {
+        songLengthErrorMsg.textContent = 'Please enter a song length';
+        songLengthInput.style.border = '2px solid rgb(214, 85, 85)';
+      } else if (songLengthInput.validity.patternMismatch) {
+        songLengthErrorMsg.textContent = 'Use this format: 3:50';
+        songLengthInput.style.border = '2px solid rgb(214, 85, 85)';
+      } else {
+        songLengthErrorMsg.textContent = '';
+        songLengthInput.style.border = '';
+      }
+    });
+    passedValidation = false;
+  } else {
+    songLengthErrorMsg.textContent = '';
+    songLengthInput.style.border = '';
+    // Remove event listener here
+  }
+  return passedValidation;
 }
